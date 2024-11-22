@@ -1,0 +1,94 @@
+{
+    "DomainUsers": {
+      "Administrators": [
+        {
+          "Username": "representative",
+          "Password": ""
+        },
+        {
+          "Username": "senator",
+          "Password": ""
+        },
+        {
+          "Username": "attache",
+          "Password": ""
+        },
+        {
+          "Username": "ambassador",
+          "Password": ""
+        }
+      ],
+      "Standard": [
+        {
+          "Username": "foreignaffairs",
+          "Password": ""
+        },
+        {
+          "Username": "intelofficer",
+          "Password": ""
+        },
+        {
+          "Username": "delegate",
+          "Password": ""
+        },
+        {
+          "Username": "advisor",
+          "Password": ""
+        },
+        {
+          "Username": "lobbyist",
+          "Password": ""
+        },
+        {
+          "Username": "aidworker",
+          "Password": ""
+        }
+      ]
+    },
+    "LocalUsers": {
+      "Administrators": [
+        {
+          "Username": "president",
+          "Password": ""
+        },
+        {
+          "Username": "vicepresident",
+          "Password": ""
+        },
+        {
+          "Username": "defenseminister",
+          "Password": ""
+        },
+        {
+          "Username": "secretary",
+          "Password": ""
+        }
+      ],
+      "Standard": [
+        {
+          "Username": "general",
+          "Password": ""
+        },
+        {
+          "Username": "admiral",
+          "Password": ""
+        },
+        {
+          "Username": "judge",
+          "Password": ""
+        },
+        {
+          "Username": "bodyguard",
+          "Password": ""
+        },
+        {
+          "Username": "cabinetofficial",
+          "Password": ""
+        },
+        {
+          "Username": "treasurer",
+          "Password": ""
+        }
+      ]
+    }
+  }
