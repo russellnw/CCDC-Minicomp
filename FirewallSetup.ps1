@@ -31,14 +31,13 @@ function Main {
         Write-Host "Invalid Service"
         exit
     }
-    exit
     Get-NetFirewallRule | Remove-NetFirewallRule
     foreach ($Port in $ServicesInbound[$Service]) {
         for ($i = 1; $i -lt $Port.Count; $i++) {
-            New-NetFirewallRule -Name "AllowInbound_$($Service)_$($Port[0])_$($Port[i])" `
-                -DisplayName "Inbound_$($Service)_$($Port[0])_$($Port[i])" `
+            New-NetFirewallRule -Name "AllowInbound_$($Service)_$($Port[0])_$($Port[$i])" `
+                -DisplayName "Inbound_$($Service)_$($Port[0])_$($Port[$i])" `
                 -Direction "Inbound" `
-                -Protocol $Port[i] `
+                -Protocol $Port[$i] `
                 -LocalPort $Port[0] `
                 -Action "Allow" `
                 -Profile "Any"
