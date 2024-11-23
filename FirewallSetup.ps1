@@ -12,6 +12,9 @@ $ServicesInbound = @{
         @("RPC","TCP"),
         @("RPCEPMap","TCP")
     )
+    "ICMP" = @(
+        @(0,"ICMPv4","ICMPv6")
+    )
     "IIS" = @(
         @(80,"TCP"),
         @(443,"TCP")
