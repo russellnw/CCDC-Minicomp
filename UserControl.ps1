@@ -7,13 +7,9 @@ function Get-UserFile {
     return $UserFile
 }
 
-function Remove-BadUsers ([Object]$UserFile) {
-    $LocalUsers = Get-LocalUser
-    foreach ($User in $LocalUsers) {
-        if (($UserFile.LocalUsers.Administrators -notcontains $User) -and ($UserFile.LocalUsers.Standard -notcontains $User)) {
-            Write-Host $User
-        }
-    }
+function Remove-BadDomainUsers ([Object]$UserFile) {
+    $ADUsers = Get-ADUser
+    $ADUsers
 }
 
 function Reset-UserType ([Object]$UserFile) {
@@ -48,9 +44,14 @@ function Set-LocalPasswords ([Object]$UserFile,[System.Security.SecureString]$Ke
 
 function Main {
     $HelpString = (@(
-        "Remove-BadUsers : Removes users not in UserFile (prompts for confirmation)"
-        "Reset-UserType : Resets the user type to the type in UserFile"
-        "Set-Passwords : Set passwords for users in UserFile (requires encryption password)"
+        "Remove-BadDomainUsers : Removes domain users not in UserFile (prompts for confirmation)"
+        "Remove-BadLocalUsers : Removes local users not in UserFile (prompts for confirmation)"
+        ""
+        "Reset-DomainUserType : Resets domain user type to the type in UserFile"
+        "Reset-LocalUserType : Resets domain user type to the type in UserFile"
+        ""
+        "Set-DomainPasswords : Set passwords for domain users in UserFile (requires encryption password)"
+        "Set-LocalPasswords : Set passwords for local users in UserFile (requires encryption password)"
         ""
         "Get-Help : Print this list"
         "Exit : Exits the script"
@@ -70,8 +71,10 @@ function Main {
         $command = ((Read-Host) -split " ")
 
         switch ($command[0].ToLower()) {
-            "remove-badusers" {Remove-BadUsers $UserFile}
-            "reset-userType" {Reset-UserType $UserFile}
+            "remove-baddomainusers" {Remove-BadDomainUsers $UserFile}
+            "remove-badlocalusers" {Remove-BadLocalUsers $UserFile}
+            "reset-domainusertype" {Reset-DomainUserType $UserFile}
+            "reset-localusertype" {Reset-LocalUserType $UserFile}
             "set-domainpasswords" {Set-DomainPasswords $UserFile $(Read-Host -AsSecureString "Input Encryption Key")}
             "set-localpasswords" {Set-LocalPasswords $UserFile $(Read-Host -AsSecureString "Input Encryption Key")}
             "get-help" {Write-Host "`n$HelpString`n"}
