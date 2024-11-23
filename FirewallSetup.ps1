@@ -43,8 +43,7 @@ function Main {
                 -Profile "Any"
         }
     }
-    Set-NetFirewallRule -Profile Domain,Private,Public `
-        -DefaultInboundAction Block
+    Set-NetFirewallProfile -All -DefaultInboundAction Block
 }
 
 if ($MyInvocation.MyCommand.Name -eq 'FirewallSetup.ps1') {
