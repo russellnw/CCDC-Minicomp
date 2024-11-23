@@ -2,13 +2,20 @@ $ServicesInbound = @{
     "AD/DNS" = @(
         @(0,"ICMPv4","ICMPv6"),
         @(53,"TCP","UDP"),
+        @(88,"TCP","UDP"),
         @(123,"UDP"),
+        @(135,"TCP"),
+        @(137,"TCP","UDP"),
         @(138,"UDP"),
+        @(139,"TCP"),
         @(389,"TCP","UDP"),
         @(445,"TCP","UDP"),
+        @(464,"TCP","UDP"),
         @(636,"TCP"),
         @(3268,"TCP"),
         @(3269,"TCP"),
+        @(5722,"TCP"),
+        @(9389,"TCP"),
         @("RPC","TCP"),
         @("RPCEPMap","TCP")
     )
