@@ -1,12 +1,12 @@
 function Read-UserFile ([string]$Path) {
     $UserFile = Get-Content -Raw -Path $Path
-    $UserFile = $UserFile | ConvertFrom-Json
+    $UserFile = $UserFile | ConvertFrom-Json -Depth 4
     
     return $UserFile
 }
 
 function Write-UserFile ([string]$Path,[Object]$UserFile) {
-    $UserFile = $UserFile | ConvertTo-Json
+    $UserFile = $UserFile | ConvertTo-Json -Depth 4
     $UserFile | Set-Content -Path $Path
 }
 
