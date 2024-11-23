@@ -1,6 +1,6 @@
 $ServicesInbound = @{
     "AD/DNS" = @(
-        @(0,"ICMPv4","ICMPv6")
+        @(0,"ICMPv4","ICMPv6"),
         @(53,"TCP","UDP"),
         @(123,"UDP"),
         @(138,"UDP"),
@@ -23,6 +23,7 @@ function Main {
         Write-Host "Invalid Service"
         exit
     }
+    exit
     Get-NetFirewallRule | Remove-NetFirewallRule
     foreach ($Port in $ServicesInbound[$Service]) {
         for ($i = 1; $i -lt $array.Count; $i++) {
