@@ -2,7 +2,7 @@
 
 function Get-UserFile {
     $UserFile = Get-Content -Raw -Path "./user-files/users-enc.json"
-    $UserFile = $UserFile | ConvertFrom-Json -Depth 4
+    $UserFile = $UserFile | ConvertFrom-Json
     
     return $UserFile
 }
