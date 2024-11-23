@@ -35,7 +35,7 @@ function Main {
     foreach ($Port in $ServicesInbound[$Service]) {
         for ($i = 1; $i -lt $Port.Count; $i++) {
             if ($Port[0] -eq 0) {
-                New-NetFirewallRule -Name "AllowInbound_$($Service)_$($Port[0])_$($Port[$i])" `
+                New-NetFirewallRule -Name "AllowInbound_$($Service)_$($Port[$i])" `
                     -DisplayName "AllowInbound_$($Service)_$($Port[$i])" `
                     -Direction "Inbound" `
                     -Protocol $Port[$i] `
