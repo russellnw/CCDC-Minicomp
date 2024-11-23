@@ -14,7 +14,7 @@ function Get-Password {
     try {
         $ApiRequestURL = "https://random-word-api.herokuapp.com/word?number=3"
         $Words = Invoke-RestMethod -Uri $ApiRequestURL -Method Get
-        return $($Words -join "-")
+        return "$($Words -join "-")-$(Get-Random -Minimum 0 -Maximum 999)"
     }
     catch {
         exit
