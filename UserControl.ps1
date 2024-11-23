@@ -20,7 +20,7 @@ function Reset-UserType ([Object]$UserFile) {
     
 }
 
-function Set-Passwords ([Object]$UserFile,[System.Security.SecureString]$Key) {
+function Set-DomainPasswords ([Object]$UserFile,[System.Security.SecureString]$Key) {
     $SHA256 = [System.Security.Cryptography.SHA256]::Create()
     $KeyHash = $SHA256.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Key))
     foreach ($User in $UserFile.DomainUsers.Administrators) {
@@ -31,6 +31,11 @@ function Set-Passwords ([Object]$UserFile,[System.Security.SecureString]$Key) {
         $SecureStringPassword = ConvertTo-SecureString -String $User.Password -Key $KeyHash
         Set-ADAccountPassword -Identity $($User.Username) -NewPassword $SecureStringPassword
     }
+}
+
+function Set-LocalPasswords ([Object]$UserFile,[System.Security.SecureString]$Key) {
+    $SHA256 = [System.Security.Cryptography.SHA256]::Create()
+    $KeyHash = $SHA256.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Key))
     foreach ($User in $UserFile.LocalUsers.Administrators) {
         $SecureStringPassword = ConvertTo-SecureString -String $User.Password -Key $KeyHash
         Set-LocalUser -Name $($User.Username) -Password $SecureStringPassword
@@ -67,7 +72,8 @@ function Main {
         switch ($command[0].ToLower()) {
             "remove-badusers" {Remove-BadUsers $UserFile}
             "reset-userType" {Reset-UserType $UserFile}
-            "set-passwords" {Set-Passwords $UserFile $(Read-Host -AsSecureString "Input Encryption Key")}
+            "set-domainpasswords" {Set-DomainPasswords $UserFile $(Read-Host -AsSecureString "Input Encryption Key")}
+            "set-localpasswords" {Set-LocalPasswords $UserFile $(Read-Host -AsSecureString "Input Encryption Key")}
             "get-help" {Write-Host "`n$HelpString`n"}
             "exit" {Write-Host;exit}
             Default {Write-Host "Invalid Command`n"}
