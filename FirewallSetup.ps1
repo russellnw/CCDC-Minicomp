@@ -18,29 +18,15 @@ $ServicesInbound = @{
 }
 
 function Main {
-    Install-Module -Name "Firewall-Manager"
-    while ($true) {
-        $DoBackup = $false
-        switch ($(Read-Host "Backup Firewall Rules (y/n)")) {
-            "y" {$DoBackup = $true}
-            "n" {break}
-            Default {
-                Write-Host "Invalid Response"
-                continue
-            }
-        }
-        if ($DoBackup -eq $true) {
-            Export-FirewallRules -JSON "./FirewallRules.json"
-        }
-        break
-    }
-    exit
     $Service = Read-Host "Service Names"
     if ($ServicesInbound -notcontains $Service) {
         Write-Host "Invalid Service"
         exit
     }
-    Get-NetFirewallRule | Remove-NetFirewallRule
+    # Get-NetFirewallRule | Remove-NetFirewallRule
+    foreach ($Port in $ServicesInbound[$Service]) {
+        Write-Host $Port
+    }
 }
 
 if ($MyInvocation.MyCommand.Name -eq 'FirewallSetup.ps1') {
