@@ -33,11 +33,11 @@ function Set-Passwords ([Object]$UserFile,[System.Security.SecureString]$Key) {
     }
     foreach ($User in $UserFile.LocalUsers.Administrators) {
         $SecureStringPassword = ConvertTo-SecureString -String $User.Password -Key $KeyHash
-        Set-LocalUser $(Get-LocalUser -Name $($User.Username)) -Password $SecureStringPassword
+        Set-LocalUser -Name $($User.Username) -Password $SecureStringPassword
     }
     foreach ($User in $UserFile.LocalUsers.Standard) {
         $SecureStringPassword = ConvertTo-SecureString -String $User.Password -Key $KeyHash
-        Set-LocalUser $(Get-LocalUser -Name $($User.Username)) -Password $SecureStringPassword
+        Set-LocalUser -Name $($User.Username) -Password $SecureStringPassword
     }
 }
 
