@@ -44,12 +44,12 @@ function Set-UserPasswords ([Object]$UserFile) {
 function Protect-Password ([string]$Password,[string]$Key) {
     $SHA256 = [System.Security.Cryptography.SHA256]::Create()
     $KeyHash = $SHA256.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($Key))
-    $SecureStringPassword = ConvertTo-SecureString -String $Password -AsPlainText
+    $SecureStringPassword = ConvertTo-SecureString -String $Password -AsPlainText -Force
     $EncryptedPassword = ConvertFrom-SecureString -SecureString $SecureStringPassword -Key $KeyHash
     return $EncryptedPassword
 }
 
-function Protect-UserPasswords ([Object]$UserFile,[string]$Key) {
+function Protect-UserPasswords ([Object]$UserFile,[System.Security.SecureString]$Key) {
     foreach ($User in $UserFile.DomainUsers.Administrators) {
         $User.Password = Protect-Password $User.Password $Key
     }
