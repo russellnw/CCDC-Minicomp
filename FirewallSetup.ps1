@@ -19,14 +19,24 @@ $ServicesInbound = @{
 
 function Main {
     $Service = Read-Host "Service Names"
-    if ($ServicesInbound -notcontains $Service) {
+    if ($ServicesInbound[$Service] -eq $null) {
         Write-Host "Invalid Service"
         exit
     }
-    # Get-NetFirewallRule | Remove-NetFirewallRule
+    Get-NetFirewallRule | Remove-NetFirewallRule
     foreach ($Port in $ServicesInbound[$Service]) {
-        Write-Host $Port
+        for ($i = 1; $i -lt $array.Count; $i++) {
+            New-NetFirewallRule -Name "AllowInbound_$($Service)_$($Port[0])_$($Port[i])" `
+                -DisplayName "Inbound_$($Service)_$($Port[0])_$($Port[i])" `
+                -Direction "Inbound" `
+                -Protocol $Port[i] `
+                -LocalPort $Port[0] `
+                -Action "Allow" `
+                -Profile "Any"
+        }
     }
+    Set-NetFirewallRule -Profile Domain,Private,Public `
+        -DefaultInboundAction Block
 }
 
 if ($MyInvocation.MyCommand.Name -eq 'FirewallSetup.ps1') {
