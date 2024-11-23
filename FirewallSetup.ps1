@@ -12,9 +12,17 @@ $ServicesInbound = @{
         @("RPC","TCP"),
         @("RPCEPMap","TCP")
     )
-    "IIS" = @(80,443)
-    "SMB" = @(445)
-    "WinRM" = @(5985,5986)
+    "IIS" = @(
+        @(80),
+        @(443)
+    )
+    "SMB" = @(
+        @(445)
+    )
+    "WinRM" = @(
+        @(5985),
+        @(5986)
+    )
 }
 
 function Main {
