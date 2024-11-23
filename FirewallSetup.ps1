@@ -18,6 +18,7 @@ $ServicesInbound = @{
 }
 
 function Main {
+    Install-Module -Name "Firewall-Manager"
     while ($true) {
         $DoBackup = $false
         switch ($(Read-Host "Backup Firewall Rules (y/n)")) {
@@ -29,8 +30,9 @@ function Main {
             }
         }
         if ($DoBackup -eq $true) {
-            Export-WindowsFirewallRules -FilePath "./FirewallRules.wfw"
+            Export-FirewallRules -JSON "./FirewallRules.json"
         }
+        break
     }
     exit
     $Service = Read-Host "Service Names"
