@@ -31,7 +31,7 @@ function Main {
         Write-Host "Invalid Service"
         exit
     }
-    Get-NetFirewallRule | Remove-NetFirewallRule
+    Get-NetFirewallRule | Where-Object {$_.Direction -eq "Inbound"} | Remove-NetFirewallRule
     foreach ($Port in $ServicesInbound[$Service]) {
         for ($i = 1; $i -lt $Port.Count; $i++) {
             if ($Port[0] -eq 0) {
